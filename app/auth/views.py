@@ -5,10 +5,6 @@ from .. import db
 from flask_login import login_user,logout_user,login_required
 from .forms import LoginForm,RegistrationForm
 
-
-
-
-
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     login_form = LoginForm()
@@ -28,7 +24,7 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(email=form.email.data, username=form.username.data, password=form.password.data)
-        
+
         db.session.add(user)
         db.session.commit()
 
