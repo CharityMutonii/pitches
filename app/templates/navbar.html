@@ -1,0 +1,76 @@
+<!-- Navbar
+<nav class="navbar navbar-expand-lg navbar-dark blue">
+
+ 
+  <h1class="navbar-brand" href="/">Pitch App
+    <span class="sr-only">(current)</span>
+    </h1>
+
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+      aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="basicExampleNav">
+
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link text-light" href="/">Home <span class="sr-only">(current)</span></a>
+        </li>
+
+
+      </ul>
+
+      <ul class="navbar-nav ml-auto">
+        {% if current_user.is_authenticated %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false" href="/">{{current_user.username}}</a>
+          <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="{{url_for('main.index')}}">Profile</a>
+            <a class="dropdown-item" href="{{url_for('auth.logout')}}">Logout</a>
+            {% else %}
+            <a class="dropdown-item text-white" href="{{url_for('auth.login')}}">Login</a>
+            {%endif%}
+          </div>
+        </li>
+      </ul>
+    </div>
+
+</nav> -->
+
+<nav class="navbar navbar-expand-lg navbar-dark blue">
+  <a style="font-size: 40px;font-weight: bold;" href="/" class="navbar-brand">PitchApp</a>
+  <ul class="navbar-nav ml-auto">
+    <!-- <li class="nav-item active">
+      <a style="font-size: 35px;font-weight: bolder;" href="/">HOME</a>
+    </li> -->
+    <li class="nav-item active">
+      <a class="nav-link text-light" href="/" style="font-size: 35px;font-weight: bolder;">Home <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle text-white" data-toggle="dropdown" style="font-size: 30px;font-weight: bolder;">Pitch
+        categories <span class="caret"></span></a>
+      <ul class="dropdown-menu">
+        <li><a class="nav-link" style="color:black;font-size: 20px;font-weight: bolder;" href="{{url_for('main.pickup_pitches')}}">Pickup pitches</a></li>
+        <li><a class="nav-link" style="color:black;font-size: 20px;font-weight: bolder;" href="{{url_for('main.interview_pitches')}}">Interview pitches</a>
+        </li>
+        <li><a class="nav-link" style="color:black;font-size: 20px;font-weight: bolder;" href="{{url_for('main.product_pitches')}}">Product pitches</a></li>
+        <li><a class="nav-link" style="color:black;font-size: 20px;font-weight: bolder;" href="{{url_for('main.promotion_pitches')}}">Promotion pitches</a>
+        </li>
+      </ul>
+    </li>
+    {% if current_user.is_authenticated %}
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false" href="/" style="font-size: 30px;font-weight: bolder;">{{current_user.username}}</a>
+      <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+        <a class="dropdown-item" href="{{url_for('main.index')}}" style="color:black;font-size: 20px;font-weight: bolder;" >Profile</a>
+        <a class="dropdown-item" href="{{url_for('auth.logout')}}" style="color:black;font-size: 20px;font-weight: bolder;" >Logout</a>
+        {% else %}
+        <a class="dropdown-item text-white" href="{{url_for('auth.login')}}" style="font-size: 30px;font-weight: bolder;">Login</a>
+        {%endif%}
+      </div>
+       </li>
+  </ul>
+</nav>

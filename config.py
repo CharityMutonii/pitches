@@ -13,6 +13,10 @@ class ProdConfig(Config):
 
     pass
 
+class TestConfig(Config):
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://charity:21193@localhost/pitches_test'
+
+
 
 class DevConfig(Config):
     
@@ -21,5 +25,6 @@ class DevConfig(Config):
 #Dictionary for configurations
 config_options = {
 'development':DevConfig,
-'production':ProdConfig
+'production':ProdConfig,
+'test':TestConfig
 } 

@@ -1,0 +1,30 @@
+{% extends 'bootstrap/base.html' %}
+{% macro displayPitches(pitches_list)%}
+{%for pitch in pitches_list%}
+<div >
+    <div class="row">
+        <div class="col-sm m-5">
+            <div class=" card col-sm mt-2">
+                <div class="well well-lg p-3" style="text-align: center;box-shadow: 0 7px 8px 0 rgba(0,0,0,0.8), 0 10px 10px 0 rgba(0,0,0,0.8);">
+                    <h4 style="font-size: 25px;">{{pitch.pitch_title}}</h4>
+                    <hr>
+                    <p>{{pitch.pitch_content| truncate(50)}}</p>
+                    <p>By: {{pitch.user.username}} </p>
+                    <p>Posted on: {{date}}</p>
+                    <a href="/pitch/{{pitch.id}}" class="btn btn-primary pull-right">View pitch</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endfor%}
+{%endmacro%}
+
+{%macro displayComments(comments_list)%}
+{%for comment in comments_list%}
+<div class="col-md-12">
+    <h5 style="font-size: 35px;font-weight: bolder;">{{comment.user.username |  capitalize}}</h5>
+    <p style="font-size: 15px;">{{comment.comment}} </p>
+</div>
+{%endfor%}
+{%endmacro%}

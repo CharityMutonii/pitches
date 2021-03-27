@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% import 'macros.html' as macro %}
+{%block content%}
+<link href="https://fonts.googleapis.com/css?family=Indie+Flower|Ranga|Tangerine" rel="stylesheet">
+
+    <div class="container text-center">
+      <h2 class="card-title h1-responsive font-bold" style="padding: 10px 25px;font-size: 60px;font-style: inherit;"><strong> Product Pitches</strong> </h2>
+    </div>
+    <hr>
+    <div class="row">
+        {{macro.displayPitches(pitches)}}
+    </div>
+
+{%endblock%}

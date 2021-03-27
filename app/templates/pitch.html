@@ -1,0 +1,37 @@
+{% extends 'base.html'%}
+{% import 'macros.html' as macro%}
+{% import "bootstrap/wtf.html" as wtf %}
+
+<!-- Content block -->
+{%block content%}
+<div class="container" style="font-family: 'Lobster Two', cursive;">
+    <div class="row">
+        <div class="col-sm-5">
+            <h3 class="pt-3" style="font-size: 35px;font-weight: bold;">Pitch</h3>
+            <hr>
+            <h3 style="font-size: 35px;font-weight: bolder;">{{pitch.pitch_title}}</h3>
+            <p>{{pitch.pitch_content}}</p>
+            <p>Posted on {{date}}</p>
+            <p>by {{pitch.user.username| capitalize}}</p> 
+            <p>like <a href="/pitch/{{pitch.id}}?like=1">
+                    <i class="fa fa-thumbs-up"></i>
+                </a> {{pitch.likes}} dislike<a href="/pitch/{{pitch.id}}?dislike=1">
+                    <i class="fa fa-thumbs-down"></i>
+                </a>{{pitch.dislikes}}</p>
+            <h5 style="font-size: 35px; font-weight: bolder;">Comments</h5>
+            {{macro.displayComments(comments)}}
+        </div>
+        <div class="col-sm-7">
+            <h3 class="pt-3" style="font-size: 35px;font-weight: bold;">Comments</h3>
+                <hr>
+            {% if current_user.is_authenticated %}
+            {{ wtf.quick_form(comment_form) }}
+            {%endif%}
+
+        </div>
+
+
+    </div>
+
+</div>
+{%endblock%}
