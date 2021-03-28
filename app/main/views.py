@@ -2,7 +2,7 @@ from flask import render_template, request, redirect, url_for, abort
 from . import main
 from ..models import User, Pitch, Comment
 from .forms import PitchForm, CommentForm
-from .. import db
+from .. import db,photos
 from flask_login import login_required, current_user
 from datetime import datetime
 
@@ -96,48 +96,55 @@ def pitch(id):
 
     return render_template("pitch.html", pitch=pitch, comment_form=comment_form, comments=comments, date=posted_date)
 
-# @main.route('/user/<uname>/pitches')
-# def user_pitches(uname):
-#     user = User.query.filter_by(username=uname).first()
-#     pitches = Pitch.query.filter_by(user_id=user.id).all()
-#     pitches_count = Pitch.count_pitches(uname)
-#     user_joined = user.date_joined.strftime('%b %d, %Y')
+@main.route('/user/<uname>/pitches')
+def user_pitches(uname):
+    user = User.query.filter_by(username=uname).first()
+    pitches_count = Pitch.count_pitches(uname)
+    user_joined = user.date_joined.strftime('%b %d, %Y')
 
-#     return render_template("profile/pitches.html", user=user, pitches=pitches, pitches_count=pitches_count, date=user_joined)
-
-
-# @main.route('/profile/<uname>')
-# def profile(uname):
-#     user = User.query.filter_by(username=uname).first()
-#     pitches_count = Pitch.count_pitches(uname)
-#     user_joined = user.date_joined.strftime('%b %d, %Y')
-#     if user is None:
-#         abort(404)
-#     return render_template("profile/profile.html", user=user, pitches=pitches_count, date=user_joined)
+    return render_template("profile/profile.html", user=user,pitches=pitches_count, date=user_joined)
 
 
-# @main.route('/user/<uname>/update', methods=['GET', 'POST'])
-# @login_required
-# def update_profile(uname):
-#     user = User.query.filter_by(username=uname).first()
-#     if user is None:
-#         abort(404)
-#     form = UpdateProfile()
-#     if form.validate_on_submit():
-#         user.bio = form.bio.data
-#         db.session.add(user)
-#         db.session.commit()
-#         return redirect(url_for('.profile', uname=user.username))
+@main.route('/profile/<uname>')
+def profile(uname):
+    user = User.query.filter_by(username = uname).first()
+    pitches = Pitch.query.filter_by(user_id = user.id).all()
+    if user is None:
+        abort(404)
+    return render_template("profile/profile.html", user=user,pitches=pitches)
 
 
-# @main.route('/user/<uname>/update/pic', methods=['POST'])
-# @login_required
-# def update_pic(uname):
-#     user = User.query.filter_by(username=uname).first()
-#     if 'photo' in request.files:
-#         filename = photos.save(request.files['photo'])
-#         path = f'photos/{filename}'
-#         user.profile_pic_path = path
-#         db.session.commit()
-#     return redirect(url_for('main.profile', uname=uname))
+
+
+
+@main.route('/user/<uname>/update',methods = ['GET','POST'])
+@login_required
+def update_profile(uname):
+    user = User.query.filter_by(username = uname).first()
+    if user is None:
+        abort(404)
+
+    form = updateProfile()
+
+    if form.validate_on_submit():
+        user.bio = form.bio.data
+
+        db.session.add(user)
+        db.session.commit()
+
+        return redirect(url_for('.profile',uname=user.username))
+
+    return render_template('profile/update.html',form =form)
+
+@main.route('/user/<uname>/update/pic', methods=['POST'])
+@login_required
+def update_pic(uname):
+    user = User.query.filter_by(username=uname).first()
+    if 'photo' in request.files:
+        filename = photos.save(request.files['photo'])
+        path = f'photos/{filename}'
+        user.profile_pic_path = path
+        db.session.commit()
+
+    return redirect(url_for('main.profile', uname=uname))
 
