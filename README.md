@@ -2,7 +2,7 @@
 ## Author
 **Charity Mutoni**
 ## Link to live site
-You can view the site here ---> 
+https://charitypitches.herokuapp.com/ 
 
 ## Description
 This is a web platform that allows users to view, submit and comment on various categories of one minute pitches.This site to allow users see various pitches and use them wisely to impress since it only takes one minute to impress somebody
